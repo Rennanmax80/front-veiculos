@@ -53,19 +53,19 @@ function VehicleForm({ formId, defaultValues, onSubmit }: VehicleFormProps) {
             variant="outlined"
           />
           <TextField
-            select
-            name="vendido"
-            label="Vendido"
-            defaultValue={defaultValues?.vendido ?? false}
-            onChange={(e) => {
-              setValue('vendido', e.target.value === 'true');
-            }}
-            error={!!errors.vendido}
-            helperText={errors.vendido?.message as string}
-          >
-            <MenuItem value="true">Sim</MenuItem>
-            <MenuItem value="false">Não</MenuItem>
-          </TextField>
+              select
+              name="vendido"
+              label="Vendido"
+              defaultValue={defaultValues?.vendido ?? false}
+              onChange={(e) => {
+                setValue('vendido', e.target.value === 'true');
+              }}
+              error={!!errors.vendido}
+              helperText={errors.vendido?.message as string}
+            >
+              <MenuItem value="true">Sim</MenuItem>
+              <MenuItem value="false">Não</MenuItem>
+            </TextField>
           <InputText
             name="veiculo"
             label="Veiculo"
