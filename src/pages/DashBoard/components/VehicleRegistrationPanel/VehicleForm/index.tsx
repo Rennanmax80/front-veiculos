@@ -1,6 +1,7 @@
 import FormControl from '~/components/forms/FormControl';
 import InputText from '~/components/forms/InputText';
 import vehicleSchema, { VehicleSchema } from './vehicle-schema';
+import { MenuItem, TextField } from '@mui/material';
 
 interface VehicleFormProps {
   formId: string;
@@ -22,7 +23,7 @@ function VehicleForm({ formId, defaultValues, onSubmit }: VehicleFormProps) {
       onSubmit={handleSubmit}
       formValidationSchema={vehicleSchema}
       defaultValues={defaultValues}
-      render={(control, errors) => (
+      render={(control, errors, { setValue, watch }) => (
         <>
           <InputText
             name="ano"
@@ -51,15 +52,20 @@ function VehicleForm({ formId, defaultValues, onSubmit }: VehicleFormProps) {
             margin="none"
             variant="outlined"
           />
-          <InputText
+          <TextField
+            select
             name="vendido"
             label="Vendido"
-            validation={control}
-            invalid={!!errors.vendido}
+            defaultValue={defaultValues?.vendido ?? false}
+            onChange={(e) => {
+              setValue('vendido', e.target.value === 'true');
+            }}
+            error={!!errors.vendido}
             helperText={errors.vendido?.message as string}
-            margin="none"
-            variant="outlined"
-          />
+          >
+            <MenuItem value="true">Sim</MenuItem>
+            <MenuItem value="false">Não</MenuItem>
+          </TextField>
           <InputText
             name="veiculo"
             label="Veiculo"

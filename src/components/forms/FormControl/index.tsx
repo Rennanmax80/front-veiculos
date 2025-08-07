@@ -5,6 +5,8 @@ import {
   DeepPartial,
   Control,
   FieldErrors,
+  UseFormSetValue,
+  UseFormWatch,
 } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ZodSchema, ZodTypeDef } from 'zod';
@@ -18,7 +20,14 @@ interface FormControlProps<T extends FieldValues> {
   defaultValues: DeepPartial<T> | null;
   styles: SxProps<Theme>;
   onSubmit: (data: T) => void;
-  render: (control: Control<T, unknown>, errors: FieldErrors<T>) => ReactNode;
+  render: (
+    control: Control<T, unknown>,
+    errors: FieldErrors<T>,
+    helpers: {
+      setValue: UseFormSetValue<T>;
+      watch: UseFormWatch<T>;
+    }
+  ) => ReactNode;
 }
 
 function FormControl<T extends FieldValues>({
@@ -33,6 +42,8 @@ function FormControl<T extends FieldValues>({
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
+    watch,
   } = useForm<T>({
     resolver: zodResolver(formValidationSchema),
     ...(defaultValues && { defaultValues }),
@@ -46,7 +57,7 @@ function FormControl<T extends FieldValues>({
       onSubmit={handleSubmit(onSubmit)}
       sx={styles}
     >
-      {render(control, errors)}
+      {render(control, errors, { setValue, watch })}
     </Box>
   );
 }

@@ -20,9 +20,7 @@ const vehicleSchema = z
       .nonempty({ message: nonemptyErrorMessage })
       .trim(),
     vendido: z
-      .string({ required_error: requiredErrorMessage })
-      .nonempty({ message: nonemptyErrorMessage })
-      .trim(),
+      .boolean({ required_error: requiredErrorMessage })
   })
   .required();
 

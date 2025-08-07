@@ -3,6 +3,6 @@ export interface Vehicle {
   ano: string;
   descricao: string;
   marca: string;
-  vendido: string;
+  vendido: boolean;
   veiculo: string;
 }
