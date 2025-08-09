@@ -39,8 +39,8 @@ function AsideMenu() {
     {
       icon: <DirectionsCarIcon />,
       label: 'Por Marca',
-      active: currentLocation === 'vehicle-panel',
-      handleClick: () => navigate('vehicle-panel'),
+      active: currentLocation === 'vehicle-brand',
+      handleClick: () => navigate('vehicle-brand'),
     },
   ];
 
