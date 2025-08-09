@@ -33,8 +33,8 @@ function AsideMenu() {
     {
       icon: <DirectionsCarIcon />,
       label: 'Por decada',
-      active: currentLocation === 'vehicle-panel',
-      handleClick: () => navigate('vehicle-panel'),
+      active: currentLocation === 'vehicle-decade',
+      handleClick: () => navigate('vehicle-decade'),
     },
     {
       icon: <DirectionsCarIcon />,
