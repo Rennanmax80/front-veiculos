@@ -13,6 +13,7 @@ import Table from '~/components/Table';
 import getVehicles from '~/services/vehicles/getVehicles';
 import VehicleTableRow from './VehicleTableRow';
 import VehicleAddButton from './VehicleAddButton';
+import getVehiclesByWeek from '~/services/vehicles/getVehiclesByWeek';
 
 function VehicleRegistrationPanel() {
   const [filtros, setFiltros] = useState({ marca: '', ano: '', vendidos: '', ultimaSemana: false });
@@ -20,10 +21,16 @@ function VehicleRegistrationPanel() {
   // Atualize a query para considerar o filtro de "Última Semana"
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['veiculos', filtros],
-    queryFn: () =>
-      getVehicles(
-        filtros.marca || filtros.ano || filtros.vendidos || filtros.ultimaSemana ? filtros : undefined
-      ),
+    queryFn: () => {
+      if (filtros.ultimaSemana) {
+        return getVehiclesByWeek();
+      }
+      return getVehicles(
+        filtros.marca || filtros.ano || filtros.vendidos
+          ? filtros
+          : undefined
+      );
+    },
     refetchOnWindowFocus: false,
   });
 
@@ -68,7 +75,7 @@ function VehicleRegistrationPanel() {
           select
         >
           <MenuItem value="">Todos</MenuItem>
-          <MenuItem value="1">Apenas vendidos</MenuItem>
+          <MenuItem value="0">Não vendidos</MenuItem>
         </TextField>
         <FormControlLabel
           control={
@@ -103,14 +110,22 @@ function VehicleRegistrationPanel() {
         <>
           <VehicleAddButton />
           {data && (
-            <Table
-              styles={{ marginTop: 3, maxHeight: '70vh' }}
-              headings={['Id', 'Ano', 'Descrição', 'Marca', 'Vendido', 'Veículo', 'Ações']}
-            >
-              {data.map((vehicle) => (
-                <VehicleTableRow key={vehicle.id} vehicle={vehicle} />
-              ))}
-            </Table>
+            <>
+              <Table
+                styles={{ marginTop: 3, maxHeight: '70vh' }}
+                headings={['Id', 'Ano', 'Descrição', 'Marca', 'Vendido', 'Veículo', 'Ações']}
+              >
+                {data.map((vehicle) => (
+                  <VehicleTableRow key={vehicle.id} vehicle={vehicle} />
+                ))}
+              </Table>
+
+              {filtros.vendidos === '0' && (
+                <span style={{ marginTop: '10px', display: 'block' }}>
+                  Total Veículos: {data.length}
+                </span>
+              )}
+            </>
           )}
         </>
       )}

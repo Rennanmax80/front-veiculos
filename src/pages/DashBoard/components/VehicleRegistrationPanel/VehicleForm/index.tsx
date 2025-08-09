@@ -56,9 +56,9 @@ function VehicleForm({ formId, defaultValues, onSubmit }: VehicleFormProps) {
               select
               name="vendido"
               label="Vendido"
-              defaultValue={defaultValues?.vendido ?? false}
+              defaultValue={defaultValues?.vendido ?? true}
               onChange={(e) => {
-                setValue('vendido', e.target.value === 'true');
+                setValue('vendido', e.target.value === 'false');
               }}
               error={!!errors.vendido}
               helperText={errors.vendido?.message as string}

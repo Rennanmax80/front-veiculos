@@ -30,6 +30,18 @@ function AsideMenu() {
       active: currentLocation === 'vehicle-panel',
       handleClick: () => navigate('vehicle-panel'),
     },
+    {
+      icon: <DirectionsCarIcon />,
+      label: 'Por decada',
+      active: currentLocation === 'vehicle-panel',
+      handleClick: () => navigate('vehicle-panel'),
+    },
+    {
+      icon: <DirectionsCarIcon />,
+      label: 'Por Marca',
+      active: currentLocation === 'vehicle-panel',
+      handleClick: () => navigate('vehicle-panel'),
+    },
   ];
 
   return (
